@@ -1,8 +1,8 @@
-import * as xyz from "@pulumi/xyz";
+import * as replicatedBucket from "@pulumi/replicatedbucket";
 
-const page = new xyz.StaticPage("page", {
-    indexContent: "<html><body><p>Hello world!</p></body></html>",
+const bucket = new replicatedBucket.Bucket("bucket", {
+    destinationRegion: "us-east-1",
 });
 
-export const bucket = page.bucket;
-export const url = page.websiteUrl;
+export const src = bucket.sourceBucket;
+export const dst = bucket.destinationBucket;

@@ -9,59 +9,59 @@ from typing import Any, Mapping, Optional, Sequence, Union, overload
 from . import _utilities
 import pulumi_aws
 
-__all__ = ['StaticPageArgs', 'StaticPage']
+__all__ = ['BucketArgs', 'Bucket']
 
 @pulumi.input_type
-class StaticPageArgs:
+class BucketArgs:
     def __init__(__self__, *,
-                 index_content: pulumi.Input[str]):
+                 destination_region: pulumi.Input[str]):
         """
-        The set of arguments for constructing a StaticPage resource.
-        :param pulumi.Input[str] index_content: The HTML content for index.html.
+        The set of arguments for constructing a Bucket resource.
+        :param pulumi.Input[str] destination_region: Region to which data should be replicated.
         """
-        pulumi.set(__self__, "index_content", index_content)
+        pulumi.set(__self__, "destination_region", destination_region)
 
     @property
-    @pulumi.getter(name="indexContent")
-    def index_content(self) -> pulumi.Input[str]:
+    @pulumi.getter(name="destinationRegion")
+    def destination_region(self) -> pulumi.Input[str]:
         """
-        The HTML content for index.html.
+        Region to which data should be replicated.
         """
-        return pulumi.get(self, "index_content")
+        return pulumi.get(self, "destination_region")
 
-    @index_content.setter
-    def index_content(self, value: pulumi.Input[str]):
-        pulumi.set(self, "index_content", value)
+    @destination_region.setter
+    def destination_region(self, value: pulumi.Input[str]):
+        pulumi.set(self, "destination_region", value)
 
 
-class StaticPage(pulumi.ComponentResource):
+class Bucket(pulumi.ComponentResource):
     @overload
     def __init__(__self__,
                  resource_name: str,
                  opts: Optional[pulumi.ResourceOptions] = None,
-                 index_content: Optional[pulumi.Input[str]] = None,
+                 destination_region: Optional[pulumi.Input[str]] = None,
                  __props__=None):
         """
-        Create a StaticPage resource with the given unique name, props, and options.
+        Create a Bucket resource with the given unique name, props, and options.
         :param str resource_name: The name of the resource.
         :param pulumi.ResourceOptions opts: Options for the resource.
-        :param pulumi.Input[str] index_content: The HTML content for index.html.
+        :param pulumi.Input[str] destination_region: Region to which data should be replicated.
         """
         ...
     @overload
     def __init__(__self__,
                  resource_name: str,
-                 args: StaticPageArgs,
+                 args: BucketArgs,
                  opts: Optional[pulumi.ResourceOptions] = None):
         """
-        Create a StaticPage resource with the given unique name, props, and options.
+        Create a Bucket resource with the given unique name, props, and options.
         :param str resource_name: The name of the resource.
-        :param StaticPageArgs args: The arguments to use to populate this resource's properties.
+        :param BucketArgs args: The arguments to use to populate this resource's properties.
         :param pulumi.ResourceOptions opts: Options for the resource.
         """
         ...
     def __init__(__self__, resource_name: str, *args, **kwargs):
-        resource_args, opts = _utilities.get_resource_args_opts(StaticPageArgs, pulumi.ResourceOptions, *args, **kwargs)
+        resource_args, opts = _utilities.get_resource_args_opts(BucketArgs, pulumi.ResourceOptions, *args, **kwargs)
         if resource_args is not None:
             __self__._internal_init(resource_name, opts, **resource_args.__dict__)
         else:
@@ -70,7 +70,7 @@ class StaticPage(pulumi.ComponentResource):
     def _internal_init(__self__,
                  resource_name: str,
                  opts: Optional[pulumi.ResourceOptions] = None,
-                 index_content: Optional[pulumi.Input[str]] = None,
+                 destination_region: Optional[pulumi.Input[str]] = None,
                  __props__=None):
         if opts is None:
             opts = pulumi.ResourceOptions()
@@ -83,33 +83,33 @@ class StaticPage(pulumi.ComponentResource):
         else:
             if __props__ is not None:
                 raise TypeError('__props__ is only valid when passed in combination with a valid opts.id to get an existing resource')
-            __props__ = StaticPageArgs.__new__(StaticPageArgs)
+            __props__ = BucketArgs.__new__(BucketArgs)
 
-            if index_content is None and not opts.urn:
-                raise TypeError("Missing required property 'index_content'")
-            __props__.__dict__["index_content"] = index_content
-            __props__.__dict__["bucket"] = None
-            __props__.__dict__["website_url"] = None
-        super(StaticPage, __self__).__init__(
-            'xyz:index:StaticPage',
+            if destination_region is None and not opts.urn:
+                raise TypeError("Missing required property 'destination_region'")
+            __props__.__dict__["destination_region"] = destination_region
+            __props__.__dict__["destination_bucket"] = None
+            __props__.__dict__["source_bucket"] = None
+        super(Bucket, __self__).__init__(
+            'replicatedbucket:index:Bucket',
             resource_name,
             __props__,
             opts,
             remote=True)
 
     @property
-    @pulumi.getter
-    def bucket(self) -> pulumi.Output['pulumi_aws.s3.Bucket']:
+    @pulumi.getter(name="destinationBucket")
+    def destination_bucket(self) -> pulumi.Output['pulumi_aws.s3.Bucket']:
         """
-        The bucket resource.
+        Bucket to which data should be replicated.
         """
-        return pulumi.get(self, "bucket")
+        return pulumi.get(self, "destination_bucket")
 
     @property
-    @pulumi.getter(name="websiteUrl")
-    def website_url(self) -> pulumi.Output[str]:
+    @pulumi.getter(name="sourceBucket")
+    def source_bucket(self) -> pulumi.Output['pulumi_aws.s3.Bucket']:
         """
-        The website URL.
+        Bucket to which objects are written.
         """
-        return pulumi.get(self, "website_url")
+        return pulumi.get(self, "source_bucket")
 

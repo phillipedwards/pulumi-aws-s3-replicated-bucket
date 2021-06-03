@@ -1,4 +1,4 @@
-module github.com/pulumi/pulumi-xyz
+module github.com/leezen/pulumi-replicatedbucket
 
 go 1.15
 

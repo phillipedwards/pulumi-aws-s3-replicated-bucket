@@ -1,30 +1,30 @@
 {
-    "name": "xyz",
+    "name": "replicatedbucket",
     "resources": {
-        "xyz:index:StaticPage": {
+        "replicatedbucket:index:Bucket": {
             "isComponent": true,
             "inputProperties": {
-                "indexContent": {
+                "destinationRegion": {
                     "type": "string",
-                    "description": "The HTML content for index.html."
+                    "description": "Region to which data should be replicated."
                 }
             },
             "requiredInputs": [
-                "indexContent"
+                "destinationRegion"
             ],
             "properties": {
-                "bucket": {
+                "sourceBucket": {
                     "$ref": "/aws/v4.0.0/schema.json#/resources/aws:s3%2Fbucket:Bucket",
-                    "description": "The bucket resource."
+                    "description": "Bucket to which objects are written."
                 },
-                "websiteUrl": {
-                    "type": "string",
-                    "description": "The website URL."
+                "destinationBucket": {
+                    "$ref": "/aws/v4.0.0/schema.json#/resources/aws:s3%2Fbucket:Bucket",
+                    "description": "Bucket to which data should be replicated."
                 }
             },
             "required": [
-                "bucket",
-                "websiteUrl"
+                "sourceBucket",
+                "destinationBucket"
             ]
         }
     },
@@ -37,7 +37,7 @@
         },
         "go": {
             "generateResourceContainerTypes": true,
-            "importBasePath": "github.com/pulumi/pulumi-xyz/sdk/go/xyz"
+            "importBasePath": "github.com/leezen/pulumi-replicatedbucket/sdk/go/replicatedbucket"
         },
         "nodejs": {
             "dependencies": {
