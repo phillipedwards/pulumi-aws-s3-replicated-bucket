@@ -10,6 +10,8 @@ VERSION_PATH    := provider/pkg/version.Version
 WORKING_DIR     := $(shell pwd)
 SCHEMA_PATH     := ${WORKING_DIR}/schema.json
 
+GOPATH          := $(shell go env GOPATH)
+
 generate:: gen_go_sdk gen_dotnet_sdk gen_nodejs_sdk gen_python_sdk
 
 build:: build_provider build_dotnet_sdk build_nodejs_sdk build_python_sdk
@@ -61,14 +63,14 @@ gen_nodejs_sdk::
 
 build_nodejs_sdk:: gen_nodejs_sdk
 	cd sdk/nodejs/ && \
+		sed -i -e "s/\$${VERSION}/${VERSION}/g" package.json && \
 		yarn install && \
 		yarn run tsc --version && \
 		yarn run tsc && \
-		cp ../../README.md ../../LICENSE package.json yarn.lock ./bin/ && \
-		sed -i.bak -e "s/\$${VERSION}/$(VERSION)/g" ./bin/package.json && \
-		rm ./bin/package.json.bak
+		cp ../../README.md ../../LICENSE package.json yarn.lock ./bin/
 
 install_nodejs_sdk:: build_nodejs_sdk
+	yarn unlink "@pulumi/replicatedbucket"
 	yarn link --cwd ${WORKING_DIR}/sdk/nodejs/bin
 
 

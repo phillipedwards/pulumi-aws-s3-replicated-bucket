@@ -1,0 +1,3 @@
+name: goExample
+runtime: go
+description: Showing how replicatingBucket can be used in go

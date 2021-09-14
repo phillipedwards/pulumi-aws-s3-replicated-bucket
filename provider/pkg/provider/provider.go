@@ -23,7 +23,6 @@ import (
 
 func construct(ctx *pulumi.Context, typ, name string, inputs provider.ConstructInputs,
 	options pulumi.ResourceOption) (*provider.ConstructResult, error) {
-	// TODO: Add support for additional component resources here.
 	switch typ {
 	case "replicatedbucket:index:Bucket":
 		return constructBucket(ctx, name, inputs, options)
