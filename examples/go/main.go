@@ -1,8 +1,8 @@
 package main
 
 import (
-	"github.com/iwahbe/pulumi-replicatedbucket/sdk/go/replicatedbucket"
 	"github.com/pulumi/pulumi-aws/sdk/v4/go/aws/s3"
+	"github.com/pulumi/pulumi-replicatedbucket/sdk/go/replicatedbucket"
 	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
 )
 
