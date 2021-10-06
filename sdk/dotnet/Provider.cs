@@ -7,9 +7,9 @@ using System.Collections.Immutable;
 using System.Threading.Tasks;
 using Pulumi.Serialization;
 
-namespace Pulumi.Replicatedbucket
+namespace Pulumi.AwsS3ReplicatedBucket
 {
-    [ReplicatedbucketResourceType("pulumi:providers:replicatedbucket")]
+    [AwsS3ReplicatedBucketResourceType("pulumi:providers:aws-s3-replicated-bucket")]
     public partial class Provider : Pulumi.ProviderResource
     {
         /// <summary>
@@ -20,7 +20,7 @@ namespace Pulumi.Replicatedbucket
         /// <param name="args">The arguments used to populate this resource's properties</param>
         /// <param name="options">A bag of options that control this resource's behavior</param>
         public Provider(string name, ProviderArgs? args = null, CustomResourceOptions? options = null)
-            : base("replicatedbucket", name, args ?? new ProviderArgs(), MakeResourceOptions(options, ""))
+            : base("aws-s3-replicated-bucket", name, args ?? new ProviderArgs(), MakeResourceOptions(options, ""))
         {
         }
 

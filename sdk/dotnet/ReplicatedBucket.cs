@@ -7,10 +7,10 @@ using System.Collections.Immutable;
 using System.Threading.Tasks;
 using Pulumi.Serialization;
 
-namespace Pulumi.Replicatedbucket
+namespace Pulumi.AwsS3ReplicatedBucket
 {
-    [ReplicatedbucketResourceType("replicatedbucket:index:Bucket")]
-    public partial class Bucket : Pulumi.ComponentResource
+    [AwsS3ReplicatedBucketResourceType("aws-s3-replicated-bucket:index:ReplicatedBucket")]
+    public partial class ReplicatedBucket : Pulumi.ComponentResource
     {
         /// <summary>
         /// Bucket to which data should be replicated.
@@ -26,14 +26,14 @@ namespace Pulumi.Replicatedbucket
 
 
         /// <summary>
-        /// Create a Bucket resource with the given unique name, arguments, and options.
+        /// Create a ReplicatedBucket resource with the given unique name, arguments, and options.
         /// </summary>
         ///
         /// <param name="name">The unique name of the resource</param>
         /// <param name="args">The arguments used to populate this resource's properties</param>
         /// <param name="options">A bag of options that control this resource's behavior</param>
-        public Bucket(string name, BucketArgs args, ComponentResourceOptions? options = null)
-            : base("replicatedbucket:index:Bucket", name, args ?? new BucketArgs(), MakeResourceOptions(options, ""), remote: true)
+        public ReplicatedBucket(string name, ReplicatedBucketArgs args, ComponentResourceOptions? options = null)
+            : base("aws-s3-replicated-bucket:index:ReplicatedBucket", name, args ?? new ReplicatedBucketArgs(), MakeResourceOptions(options, ""), remote: true)
         {
         }
 
@@ -50,7 +50,7 @@ namespace Pulumi.Replicatedbucket
         }
     }
 
-    public sealed class BucketArgs : Pulumi.ResourceArgs
+    public sealed class ReplicatedBucketArgs : Pulumi.ResourceArgs
     {
         /// <summary>
         /// Region to which data should be replicated.
@@ -58,7 +58,7 @@ namespace Pulumi.Replicatedbucket
         [Input("destinationRegion", required: true)]
         public Input<string> DestinationRegion { get; set; } = null!;
 
-        public BucketArgs()
+        public ReplicatedBucketArgs()
         {
         }
     }

@@ -17,11 +17,11 @@
 package main
 
 import (
-	"github.com/leezen/pulumi-replicatedbucket/pkg/provider"
-	"github.com/leezen/pulumi-replicatedbucket/pkg/version"
+	"github.com/pulumi/pulumi-aws-s3-replicated-bucket/provider/pkg/provider"
+	"github.com/pulumi/pulumi-aws-s3-replicated-bucket/provider/pkg/version"
 )
 
-var providerName = "replicatedbucket"
+var providerName = "aws-s3-replicated-bucket"
 
 func main() {
 	provider.Serve(providerName, version.Version, pulumiSchema)

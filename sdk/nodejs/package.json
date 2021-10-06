@@ -1,6 +1,6 @@
 {
-    "name": "@pulumi/replicatedbucket",
-    "version": "0.0.1",
+    "name": "@pulumi/aws-s3-replicated-bucket",
+    "version": "${VERSION}",
     "scripts": {
         "build": "tsc"
     },
