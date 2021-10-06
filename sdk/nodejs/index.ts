@@ -5,31 +5,31 @@ import * as pulumi from "@pulumi/pulumi";
 import * as utilities from "./utilities";
 
 // Export members:
-export * from "./bucket";
 export * from "./provider";
+export * from "./replicatedBucket";
 
 // Import resources to register:
-import { Bucket } from "./bucket";
+import { ReplicatedBucket } from "./replicatedBucket";
 
 const _module = {
     version: utilities.getVersion(),
     construct: (name: string, type: string, urn: string): pulumi.Resource => {
         switch (type) {
-            case "replicatedbucket:index:Bucket":
-                return new Bucket(name, <any>undefined, { urn })
+            case "aws-s3-replicated-bucket:index:ReplicatedBucket":
+                return new ReplicatedBucket(name, <any>undefined, { urn })
             default:
                 throw new Error(`unknown resource type ${type}`);
         }
     },
 };
-pulumi.runtime.registerResourceModule("replicatedbucket", "index", _module)
+pulumi.runtime.registerResourceModule("aws-s3-replicated-bucket", "index", _module)
 
 import { Provider } from "./provider";
 
-pulumi.runtime.registerResourcePackage("replicatedbucket", {
+pulumi.runtime.registerResourcePackage("aws-s3-replicated-bucket", {
     version: utilities.getVersion(),
     constructProvider: (name: string, type: string, urn: string): pulumi.ProviderResource => {
-        if (type !== "pulumi:providers:replicatedbucket") {
+        if (type !== "pulumi:providers:aws-s3-replicated-bucket") {
             throw new Error(`unknown provider type ${type}`);
         }
         return new Provider(name, <any>undefined, { urn });

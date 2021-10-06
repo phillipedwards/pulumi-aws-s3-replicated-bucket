@@ -1,7 +1,7 @@
-VERSION         := 0.0.1
+VERSION         := $(shell pulumictl get version)
 
-PACK            := replicatedbucket
-PROJECT         := github.com/leezen/pulumi-${PACK}
+PACK            := aws-s3-replicated-bucket
+PROJECT         := github.com/pulumi/pulumi-${PACK}
 
 PROVIDER        := pulumi-resource-${PACK}
 CODEGEN         := pulumi-gen-${PACK}
@@ -43,7 +43,7 @@ gen_dotnet_sdk::
 	rm -rf sdk/dotnet
 	cd provider/cmd/${CODEGEN} && go run . dotnet ../../../sdk/dotnet ${SCHEMA_PATH}
 
-build_dotnet_sdk:: DOTNET_VERSION := ${VERSION}
+build_dotnet_sdk:: DOTNET_VERSION := $(shell pulumictl get version --language dotnet)
 build_dotnet_sdk:: gen_dotnet_sdk
 	cd sdk/dotnet/ && \
 		echo "${DOTNET_VERSION}" >version.txt && \
@@ -61,16 +61,18 @@ gen_nodejs_sdk::
 	rm -rf sdk/nodejs
 	cd provider/cmd/${CODEGEN} && go run . nodejs ../../../sdk/nodejs ${SCHEMA_PATH}
 
+build_nodejs_sdk:: VERSION := $(shell pulumictl get version --language javascript)
 build_nodejs_sdk:: gen_nodejs_sdk
 	cd sdk/nodejs/ && \
-		sed -i -e "s/\$${VERSION}/${VERSION}/g" package.json && \
 		yarn install && \
 		yarn run tsc --version && \
 		yarn run tsc && \
-		cp ../../README.md ../../LICENSE package.json yarn.lock ./bin/
+		cp ../../README.md ../../LICENSE package.json yarn.lock ./bin/ && \
+		sed -i.bak -e "s/\$${VERSION}/$(VERSION)/g" ./bin/package.json && \
+		rm ./bin/package.json.bak
 
 install_nodejs_sdk:: build_nodejs_sdk
-	yarn unlink "@pulumi/replicatedbucket"
+	yarn unlink ${PACK} || true
 	yarn link --cwd ${WORKING_DIR}/sdk/nodejs/bin
 
 
@@ -81,7 +83,7 @@ gen_python_sdk::
 	cd provider/cmd/${CODEGEN} && go run . python ../../../sdk/python ${SCHEMA_PATH}
 	cp ${WORKING_DIR}/README.md sdk/python
 
-build_python_sdk:: PYPI_VERSION := ${VERSION}
+build_python_sdk:: PYPI_VERSION := $(shell pulumictl get version --language python)
 build_python_sdk:: gen_python_sdk
 	cd sdk/python/ && \
 		python3 setup.py clean --all 2>/dev/null && \
@@ -89,3 +91,6 @@ build_python_sdk:: gen_python_sdk
 		sed -i.bak -e "s/\$${VERSION}/${PYPI_VERSION}/g" -e "s/\$${PLUGIN_VERSION}/${VERSION}/g" ./bin/setup.py && \
 		rm ./bin/setup.py.bak && \
 		cd ./bin && python3 setup.py build sdist
+
+## Empty build target for Go
+build_go_sdk::

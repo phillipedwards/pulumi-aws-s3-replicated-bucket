@@ -9,14 +9,14 @@ from typing import Any, Mapping, Optional, Sequence, Union, overload
 from . import _utilities
 import pulumi_aws
 
-__all__ = ['BucketArgs', 'Bucket']
+__all__ = ['ReplicatedBucketArgs', 'ReplicatedBucket']
 
 @pulumi.input_type
-class BucketArgs:
+class ReplicatedBucketArgs:
     def __init__(__self__, *,
                  destination_region: pulumi.Input[str]):
         """
-        The set of arguments for constructing a Bucket resource.
+        The set of arguments for constructing a ReplicatedBucket resource.
         :param pulumi.Input[str] destination_region: Region to which data should be replicated.
         """
         pulumi.set(__self__, "destination_region", destination_region)
@@ -34,7 +34,7 @@ class BucketArgs:
         pulumi.set(self, "destination_region", value)
 
 
-class Bucket(pulumi.ComponentResource):
+class ReplicatedBucket(pulumi.ComponentResource):
     @overload
     def __init__(__self__,
                  resource_name: str,
@@ -42,7 +42,7 @@ class Bucket(pulumi.ComponentResource):
                  destination_region: Optional[pulumi.Input[str]] = None,
                  __props__=None):
         """
-        Create a Bucket resource with the given unique name, props, and options.
+        Create a ReplicatedBucket resource with the given unique name, props, and options.
         :param str resource_name: The name of the resource.
         :param pulumi.ResourceOptions opts: Options for the resource.
         :param pulumi.Input[str] destination_region: Region to which data should be replicated.
@@ -51,17 +51,17 @@ class Bucket(pulumi.ComponentResource):
     @overload
     def __init__(__self__,
                  resource_name: str,
-                 args: BucketArgs,
+                 args: ReplicatedBucketArgs,
                  opts: Optional[pulumi.ResourceOptions] = None):
         """
-        Create a Bucket resource with the given unique name, props, and options.
+        Create a ReplicatedBucket resource with the given unique name, props, and options.
         :param str resource_name: The name of the resource.
-        :param BucketArgs args: The arguments to use to populate this resource's properties.
+        :param ReplicatedBucketArgs args: The arguments to use to populate this resource's properties.
         :param pulumi.ResourceOptions opts: Options for the resource.
         """
         ...
     def __init__(__self__, resource_name: str, *args, **kwargs):
-        resource_args, opts = _utilities.get_resource_args_opts(BucketArgs, pulumi.ResourceOptions, *args, **kwargs)
+        resource_args, opts = _utilities.get_resource_args_opts(ReplicatedBucketArgs, pulumi.ResourceOptions, *args, **kwargs)
         if resource_args is not None:
             __self__._internal_init(resource_name, opts, **resource_args.__dict__)
         else:
@@ -83,15 +83,15 @@ class Bucket(pulumi.ComponentResource):
         else:
             if __props__ is not None:
                 raise TypeError('__props__ is only valid when passed in combination with a valid opts.id to get an existing resource')
-            __props__ = BucketArgs.__new__(BucketArgs)
+            __props__ = ReplicatedBucketArgs.__new__(ReplicatedBucketArgs)
 
             if destination_region is None and not opts.urn:
                 raise TypeError("Missing required property 'destination_region'")
             __props__.__dict__["destination_region"] = destination_region
             __props__.__dict__["destination_bucket"] = None
             __props__.__dict__["source_bucket"] = None
-        super(Bucket, __self__).__init__(
-            'replicatedbucket:index:Bucket',
+        super(ReplicatedBucket, __self__).__init__(
+            'aws-s3-replicated-bucket:index:ReplicatedBucket',
             resource_name,
             __props__,
             opts,

@@ -24,29 +24,29 @@ import (
 	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
 )
 
-// The set of arguments for creating a Bucket component resource.
-type BucketArgs struct {
+// The set of arguments for creating a ReplicatedBucket component resource.
+type ReplicatedBucketArgs struct {
 	// Destination region for the replicated bucket.
 	DestinationRegion pulumi.StringInput `pulumi:"destinationRegion"`
 }
 
-// The Bucket component resource.
-type Bucket struct {
+// The ReplicatedBucket component resource.
+type ReplicatedBucket struct {
 	pulumi.ResourceState
 
 	SourceBucket      *s3.Bucket `pulumi:"sourceBucket"`
 	DestinationBucket *s3.Bucket `pulumi:"destinationBucket"`
 }
 
-// NewBucket creates a new Bucket component resource.
-func NewBucket(ctx *pulumi.Context,
-	name string, args *BucketArgs, opts ...pulumi.ResourceOption) (*Bucket, error) {
+// NewReplicatedBucket creates a new ReplicatedBucket component resource.
+func NewReplicatedBucket(ctx *pulumi.Context,
+	name string, args *ReplicatedBucketArgs, opts ...pulumi.ResourceOption) (*ReplicatedBucket, error) {
 	if args == nil {
-		args = &BucketArgs{}
+		args = &ReplicatedBucketArgs{}
 	}
 
-	component := &Bucket{}
-	err := ctx.RegisterComponentResource("replicatedbucket:index:Bucket", name, component, opts...)
+	component := &ReplicatedBucket{}
+	err := ctx.RegisterComponentResource("aws-s3-replicated-bucket:index:ReplicatedBucket", name, component, opts...)
 	if err != nil {
 		return nil, err
 	}

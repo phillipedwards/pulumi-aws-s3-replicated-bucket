@@ -1,7 +1,7 @@
 {
-    "name": "replicatedbucket",
+    "name": "aws-s3-replicated-bucket",
     "resources": {
-        "replicatedbucket:index:Bucket": {
+        "aws-s3-replicated-bucket:index:ReplicatedBucket": {
             "isComponent": true,
             "inputProperties": {
                 "destinationRegion": {
@@ -14,11 +14,11 @@
             ],
             "properties": {
                 "sourceBucket": {
-                    "$ref": "/aws/v4.0.0/schema.json#/resources/aws:s3%2Fbucket:Bucket",
+                    "$ref": "/aws/v4.23.0/schema.json#/resources/aws:s3%2Fbucket:Bucket",
                     "description": "Bucket to which objects are written."
                 },
                 "destinationBucket": {
-                    "$ref": "/aws/v4.0.0/schema.json#/resources/aws:s3%2Fbucket:Bucket",
+                    "$ref": "/aws/v4.23.0/schema.json#/resources/aws:s3%2Fbucket:Bucket",
                     "description": "Bucket to which data should be replicated."
                 }
             },
@@ -33,11 +33,14 @@
             "packageReferences": {
                 "Pulumi": "3.*",
                 "Pulumi.Aws": "4.*"
+            },
+            "namespaces": {
+                "aws-s3-replicated-bucket": "AwsS3ReplicatedBucket"
             }
         },
         "go": {
             "generateResourceContainerTypes": true,
-            "importBasePath": "github.com/leezen/pulumi-replicatedbucket/sdk/go/replicatedbucket"
+            "importBasePath": "github.com/pulumi/pulumi-aws-s3-replicated-bucket/sdk/go/s3"
         },
         "nodejs": {
             "dependencies": {

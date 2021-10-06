@@ -24,26 +24,26 @@ import (
 func construct(ctx *pulumi.Context, typ, name string, inputs provider.ConstructInputs,
 	options pulumi.ResourceOption) (*provider.ConstructResult, error) {
 	switch typ {
-	case "replicatedbucket:index:Bucket":
-		return constructBucket(ctx, name, inputs, options)
+	case "aws-s3-replicated-bucket:index:ReplicatedBucket":
+		return constructReplicatedBucket(ctx, name, inputs, options)
 	default:
 		return nil, errors.Errorf("unknown resource type %s", typ)
 	}
 }
 
-// constructBucket is an implementation of Construct for the Bucket component.
-func constructBucket(ctx *pulumi.Context, name string, inputs provider.ConstructInputs,
+// constructReplicatedBucket is an implementation of Construct for the RepliatedBucket component.
+func constructReplicatedBucket(ctx *pulumi.Context, name string, inputs provider.ConstructInputs,
 	options pulumi.ResourceOption) (*provider.ConstructResult, error) {
 
-	// Copy the raw inputs to BucketArgs. `inputs.CopyTo` uses the types and `pulumi:` tags
+	// Copy the raw inputs to ReplicatedBucketArgs. `inputs.CopyTo` uses the types and `pulumi:` tags
 	// on the struct's fields to convert the raw values to the appropriate Input types.
-	args := &BucketArgs{}
+	args := &ReplicatedBucketArgs{}
 	if err := inputs.CopyTo(args); err != nil {
 		return nil, errors.Wrap(err, "setting args")
 	}
 
 	// Create the component resource.
-	bucket, err := NewBucket(ctx, name, args, options)
+	bucket, err := NewReplicatedBucket(ctx, name, args, options)
 	if err != nil {
 		return nil, errors.Wrap(err, "creating component")
 	}

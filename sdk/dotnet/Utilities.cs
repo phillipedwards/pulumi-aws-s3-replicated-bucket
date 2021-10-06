@@ -6,7 +6,7 @@ using System.IO;
 using System.Reflection;
 using Pulumi;
 
-namespace Pulumi.Replicatedbucket
+namespace Pulumi.AwsS3ReplicatedBucket
 {
     static class Utilities
     {
@@ -66,7 +66,7 @@ namespace Pulumi.Replicatedbucket
         static Utilities()
         {
             var assembly = typeof(Utilities).GetTypeInfo().Assembly;
-            using var stream = assembly.GetManifestResourceStream("Pulumi.Replicatedbucket.version.txt");
+            using var stream = assembly.GetManifestResourceStream("Pulumi.AwsS3ReplicatedBucket.version.txt");
             using var reader = new StreamReader(stream ?? throw new NotSupportedException("Missing embedded version.txt file"));
             version = reader.ReadToEnd().Trim();
             var parts = version.Split("\n");
@@ -78,9 +78,9 @@ namespace Pulumi.Replicatedbucket
         }
     }
 
-    internal sealed class ReplicatedbucketResourceTypeAttribute : Pulumi.ResourceTypeAttribute
+    internal sealed class AwsS3ReplicatedBucketResourceTypeAttribute : Pulumi.ResourceTypeAttribute
     {
-        public ReplicatedbucketResourceTypeAttribute(string type) : base(type, Utilities.Version)
+        public AwsS3ReplicatedBucketResourceTypeAttribute(string type) : base(type, Utilities.Version)
         {
         }
     }
