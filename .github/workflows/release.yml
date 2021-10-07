@@ -16,8 +16,11 @@ env:
   PUBLISH_NUGET: true
   # IF YOU NEED TO PUBLISH A PYPI PACKAGE THEN ENSURE AN PYPI_API_TOKEN
   # SECRET IS SET AND PUBLISH_PYPI: TRUE. IF YOU WANT TO PUBLISH TO AN ALTERNATIVE
-  # PYPI REGISTRY THEN ENSURE THE PYPI_REPOSITORY_URL IS SET
-  PYPI_API_TOKEN: ${{ secrets.PYPI_API_TOKEN }}
+  # PYPI REGISTRY THEN ENSURE THE PYPI_REPOSITORY_URL IS SET. IF YOU ARE USING AN API_TOKEN THEN
+  # YOU DO NOT NEED TO CHANGE THE PYPI_USERNAME (__token__) , IF YOU ARE USING PASSWORD AUTHENTICATION THEN YOU WILL
+  # NEED TO CHANGE TO USE THE CORRECT PASSWORD
+  PYPI_PASSWORD: ${{ secrets.PYPI_PASSWORD }}
+  PYPI_USERNAME: "pulumi"
   PYPI_REPOSITORY_URL: ""
   PUBLISH_PYPI: true
 jobs:
@@ -101,7 +104,7 @@ jobs:
         name: Publish package to PyPI
         uses: pypa/gh-action-pypi-publish@release/v1
         with:
-          user: __token__
+          user: ${{ env.PYPI_USERNAME }}
           password: ${{ env.PYPI_PASSWORD }}
           packages_dir: ${{github.workspace}}/sdk/python/bin/dist
       - if: ${{ matrix.language == 'nodejs' && env.PUBLISH_NPM == 'true' }}
