@@ -19,6 +19,20 @@ build:: build_provider build_dotnet_sdk build_nodejs_sdk build_python_sdk
 install:: install_provider install_dotnet_sdk install_nodejs_sdk
 
 
+build_mac_amd_plugin::
+	rm -rf ${WORKING_DIR}/bin/mac_amd/
+	cd provider/cmd/${PROVIDER} && VERSION=${VERSION} SCHEMA=${SCHEMA_PATH} go generate main.go
+	cd provider/cmd/${PROVIDER} && env GOOS=darwin GOARCH=amd64 go build -o ${WORKING_DIR}/bin/mac_amd/${PROVIDER} -ldflags "-X ${PROJECT}/${VERSION_PATH}=${VERSION}" .
+	(cd bin/mac_amd && tar --gzip -cf ../pulumi-resource-${PACK}-v${VERSION}-darwin-amd64.tar.gz .)
+	rm -rf ${WORKING_DIR}/bin/mac_amd/
+
+build_linux_amd_plugin::
+	rm -rf ${WORKING_DIR}/bin/linux_amd/
+	cd provider/cmd/${PROVIDER} && VERSION=${VERSION} SCHEMA=${SCHEMA_PATH} go generate main.go
+	cd provider/cmd/${PROVIDER} && env GOOS=linux GOARCH=amd64 go build -o ${WORKING_DIR}/bin/linux_amd/${PROVIDER} -ldflags "-X ${PROJECT}/${VERSION_PATH}=${VERSION}" .
+	(cd bin/linux_amd && tar --gzip -cf ../pulumi-resource-${PACK}-v${VERSION}-linux-amd64.tar.gz .)
+	rm -rf ${WORKING_DIR}/bin/linux_amd/
+
 # Provider
 
 build_provider::

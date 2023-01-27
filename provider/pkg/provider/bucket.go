@@ -18,9 +18,9 @@ import (
 	"encoding/json"
 	"fmt"
 
-	"github.com/pulumi/pulumi-aws/sdk/v4/go/aws"
-	"github.com/pulumi/pulumi-aws/sdk/v4/go/aws/iam"
-	"github.com/pulumi/pulumi-aws/sdk/v4/go/aws/s3"
+	"github.com/pulumi/pulumi-aws/sdk/v5/go/aws"
+	"github.com/pulumi/pulumi-aws/sdk/v5/go/aws/iam"
+	"github.com/pulumi/pulumi-aws/sdk/v5/go/aws/s3"
 	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
 )
 
@@ -36,6 +36,7 @@ type ReplicatedBucket struct {
 
 	SourceBucket      *s3.Bucket `pulumi:"sourceBucket"`
 	DestinationBucket *s3.Bucket `pulumi:"destinationBucket"`
+	//DestinationBucket *s3.BucketV2 `pulumi:"destinationBucket"`
 }
 
 // NewReplicatedBucket creates a new ReplicatedBucket component resource.
@@ -69,6 +70,19 @@ func NewReplicatedBucket(ctx *pulumi.Context,
 	if err != nil {
 		return nil, err
 	}
+
+	// Create the destination bucket.
+	// dst, err := s3.NewBucketV2(ctx, fmt.Sprintf("%sDestination", name), &s3.BucketV2Args{
+	// 	Versionings: s3.BucketV2VersioningArray{
+	// 		s3.BucketV2VersioningArgs{
+	// 			Enabled: pulumi.BoolPtr(true),
+	// 		},
+	// 	},
+	// }, pulumi.Parent(component),
+	// 	pulumi.Provider(provider))
+	// if err != nil {
+	// 	return nil, err
+	// }
 
 	replicationAssumeRolePolicy, _ := json.Marshal(map[string]interface{}{
 		"Version": "2012-10-17",

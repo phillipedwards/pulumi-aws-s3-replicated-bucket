@@ -10,7 +10,7 @@ using Pulumi.Serialization;
 namespace Pulumi.AwsS3ReplicatedBucket
 {
     [AwsS3ReplicatedBucketResourceType("aws-s3-replicated-bucket:index:ReplicatedBucket")]
-    public partial class ReplicatedBucket : Pulumi.ComponentResource
+    public partial class ReplicatedBucket : global::Pulumi.ComponentResource
     {
         /// <summary>
         /// Bucket to which data should be replicated.
@@ -50,7 +50,7 @@ namespace Pulumi.AwsS3ReplicatedBucket
         }
     }
 
-    public sealed class ReplicatedBucketArgs : Pulumi.ResourceArgs
+    public sealed class ReplicatedBucketArgs : global::Pulumi.ResourceArgs
     {
         /// <summary>
         /// Region to which data should be replicated.
@@ -61,5 +61,6 @@ namespace Pulumi.AwsS3ReplicatedBucket
         public ReplicatedBucketArgs()
         {
         }
+        public static new ReplicatedBucketArgs Empty => new ReplicatedBucketArgs();
     }
 }

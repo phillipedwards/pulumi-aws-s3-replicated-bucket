@@ -20,12 +20,29 @@
                 "destinationBucket": {
                     "$ref": "/aws/v4.23.0/schema.json#/resources/aws:s3%2Fbucket:Bucket",
                     "description": "Bucket to which data should be replicated."
+                },
+                "locationPolicy": {
+                    "$ref": "#/types/aws-s3-replicated-bucket:gcp/gke:NodePoolAutoscaling",
+                    "description": "test stuff",
+                    "type": "object",
+                    "plain": true
                 }
             },
             "required": [
                 "sourceBucket",
                 "destinationBucket"
             ]
+        }
+    },
+    "types": {
+        "aws-s3-replicated-bucket:gcp/gke:NodePoolAutoscaling": {
+            "type": "object",
+            "properties": {
+                "locationPolicy": {
+                    "$ref": "/google-native/v0.27.0/schema.json#types/google-native:container/v1:NodePoolAutoscalingLocationPolicy",
+                    "description": "Location policy used when scaling up a nodepool."
+                }
+            }
         }
     },
     "language": {

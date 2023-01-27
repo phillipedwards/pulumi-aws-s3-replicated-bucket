@@ -48,6 +48,7 @@ setup(name='pulumi_aws_s3_replicated_bucket',
       package_data={
           'pulumi_aws_s3_replicated_bucket': [
               'py.typed',
+              'pulumi-plugin.json',
           ]
       },
       install_requires=[
