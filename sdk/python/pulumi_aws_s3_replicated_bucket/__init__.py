@@ -7,6 +7,14 @@ import typing
 # Export this package's modules as members:
 from .provider import *
 from .replicated_bucket import *
+
+# Make subpackages available:
+if typing.TYPE_CHECKING:
+    import pulumi_aws_s3_replicated_bucket.gcp as __gcp
+    gcp = __gcp
+else:
+    gcp = _utilities.lazy_import('pulumi_aws_s3_replicated_bucket.gcp')
+
 _utilities.register(
     resource_modules="""
 [

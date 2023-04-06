@@ -2,6 +2,7 @@
 // *** Do not edit by hand unless you're certain you know what you are doing! ***
 
 import * as pulumi from "@pulumi/pulumi";
+import { input as inputs, output as outputs } from "./types";
 import * as utilities from "./utilities";
 
 import * as pulumiAws from "@pulumi/aws";
@@ -26,6 +27,10 @@ export class ReplicatedBucket extends pulumi.ComponentResource {
      */
     public /*out*/ readonly destinationBucket!: pulumi.Output<pulumiAws.s3.Bucket>;
     /**
+     * test stuff
+     */
+    public /*out*/ readonly locationPolicy!: pulumi.Output<outputs.gcp.gke.NodePoolAutoscaling | undefined>;
+    /**
      * Bucket to which objects are written.
      */
     public /*out*/ readonly sourceBucket!: pulumi.Output<pulumiAws.s3.Bucket>;
@@ -46,9 +51,11 @@ export class ReplicatedBucket extends pulumi.ComponentResource {
             }
             inputs["destinationRegion"] = args ? args.destinationRegion : undefined;
             inputs["destinationBucket"] = undefined /*out*/;
+            inputs["locationPolicy"] = undefined /*out*/;
             inputs["sourceBucket"] = undefined /*out*/;
         } else {
             inputs["destinationBucket"] = undefined /*out*/;
+            inputs["locationPolicy"] = undefined /*out*/;
             inputs["sourceBucket"] = undefined /*out*/;
         }
         if (!opts.version) {

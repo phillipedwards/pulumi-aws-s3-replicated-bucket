@@ -8,6 +8,7 @@ import (
 	"reflect"
 
 	"github.com/pkg/errors"
+	"github.com/pulumi/pulumi-aws-s3-replicated-bucket/sdk/go/s3/gcp/gke"
 	"github.com/pulumi/pulumi-aws/sdk/v4/go/aws/s3"
 	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
 )
@@ -17,6 +18,8 @@ type ReplicatedBucket struct {
 
 	// Bucket to which data should be replicated.
 	DestinationBucket s3.BucketOutput `pulumi:"destinationBucket"`
+	// test stuff
+	LocationPolicy gcpgke.NodePoolAutoscalingPtrOutput `pulumi:"locationPolicy"`
 	// Bucket to which objects are written.
 	SourceBucket s3.BucketOutput `pulumi:"sourceBucket"`
 }

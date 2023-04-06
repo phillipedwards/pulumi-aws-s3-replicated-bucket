@@ -7,6 +7,8 @@ import pulumi
 import pulumi.runtime
 from typing import Any, Mapping, Optional, Sequence, Union, overload
 from . import _utilities
+from . import container
+from pulumi_kubernetes import gcp as _gcp
 import pulumi_aws
 
 __all__ = ['ReplicatedBucketArgs', 'ReplicatedBucket']
@@ -89,6 +91,7 @@ class ReplicatedBucket(pulumi.ComponentResource):
                 raise TypeError("Missing required property 'destination_region'")
             __props__.__dict__["destination_region"] = destination_region
             __props__.__dict__["destination_bucket"] = None
+            __props__.__dict__["location_policy"] = None
             __props__.__dict__["source_bucket"] = None
         super(ReplicatedBucket, __self__).__init__(
             'aws-s3-replicated-bucket:index:ReplicatedBucket',
@@ -104,6 +107,14 @@ class ReplicatedBucket(pulumi.ComponentResource):
         Bucket to which data should be replicated.
         """
         return pulumi.get(self, "destination_bucket")
+
+    @property
+    @pulumi.getter(name="locationPolicy")
+    def location_policy(self) -> pulumi.Output[Optional['_gcp.gke.outputs.NodePoolAutoscaling']]:
+        """
+        test stuff
+        """
+        return pulumi.get(self, "location_policy")
 
     @property
     @pulumi.getter(name="sourceBucket")

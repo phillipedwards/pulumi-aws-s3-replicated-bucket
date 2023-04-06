@@ -16,6 +16,9 @@
         "index.ts",
         "provider.ts",
         "replicatedBucket.ts",
+        "types/index.ts",
+        "types/input.ts",
+        "types/output.ts",
         "utilities.ts"
     ]
 }

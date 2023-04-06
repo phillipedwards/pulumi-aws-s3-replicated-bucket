@@ -19,6 +19,12 @@ namespace Pulumi.AwsS3ReplicatedBucket
         public Output<Pulumi.Aws.S3.Bucket> DestinationBucket { get; private set; } = null!;
 
         /// <summary>
+        /// test stuff
+        /// </summary>
+        [Output("locationPolicy")]
+        public Output<Pulumi.Kubernetes.Gcp/gke.Outputs.NodePoolAutoscaling?> LocationPolicy { get; private set; } = null!;
+
+        /// <summary>
         /// Bucket to which objects are written.
         /// </summary>
         [Output("sourceBucket")]

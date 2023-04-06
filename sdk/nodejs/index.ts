@@ -8,6 +8,13 @@ import * as utilities from "./utilities";
 export * from "./provider";
 export * from "./replicatedBucket";
 
+// Export sub-modules:
+import * as types from "./types";
+
+export {
+    types,
+};
+
 // Import resources to register:
 import { ReplicatedBucket } from "./replicatedBucket";
 
