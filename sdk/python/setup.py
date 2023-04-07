@@ -38,6 +38,7 @@ def readme():
 
 
 setup(name='pulumi_aws_s3_replicated_bucket',
+      python_requires='>=3.7',
       version=VERSION,
       long_description=readme(),
       long_description_content_type='text/markdown',
@@ -48,6 +49,7 @@ setup(name='pulumi_aws_s3_replicated_bucket',
       package_data={
           'pulumi_aws_s3_replicated_bucket': [
               'py.typed',
+              'pulumi-plugin.json',
           ]
       },
       install_requires=[

@@ -2,15 +2,14 @@
 // *** Do not edit by hand unless you're certain you know what you are doing! ***
 
 import * as pulumi from "@pulumi/pulumi";
-import { input as inputs, output as outputs } from "../types";
+import * as inputs from "../types/input";
+import * as outputs from "../types/output";
 
-export namespace gcp {
-    export namespace gke {
-        export interface NodePoolAutoscaling {
-            /**
-             * Location policy used when scaling up a nodepool.
-             */
-            locationPolicy?: enums.container.v1.NodePoolAutoscalingLocationPolicy;
+export namespace crd.k8s.amazonaws.com {
+    export namespace v1alpha1 {
+        export interface ENIConfigSpec {
+            securityGroups?: string[];
+            subnet?: string;
         }
 
     }

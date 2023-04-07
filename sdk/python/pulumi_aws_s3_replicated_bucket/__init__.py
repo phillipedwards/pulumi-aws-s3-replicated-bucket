@@ -10,10 +10,10 @@ from .replicated_bucket import *
 
 # Make subpackages available:
 if typing.TYPE_CHECKING:
-    import pulumi_aws_s3_replicated_bucket.gcp as __gcp
-    gcp = __gcp
+    import pulumi_aws_s3_replicated_bucket.crd_k8s_amazonaws_com as __crd_k8s_amazonaws_com
+    crd_k8s_amazonaws_com = __crd_k8s_amazonaws_com
 else:
-    gcp = _utilities.lazy_import('pulumi_aws_s3_replicated_bucket.gcp')
+    crd_k8s_amazonaws_com = _utilities.lazy_import('pulumi_aws_s3_replicated_bucket.crd_k8s_amazonaws_com')
 
 _utilities.register(
     resource_modules="""

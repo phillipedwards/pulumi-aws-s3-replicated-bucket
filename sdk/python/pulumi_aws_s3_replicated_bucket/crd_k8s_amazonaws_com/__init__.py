@@ -7,8 +7,8 @@ import typing
 
 # Make subpackages available:
 if typing.TYPE_CHECKING:
-    import pulumi_aws_s3_replicated_bucket.gcp.gke as __gke
-    gke = __gke
+    import pulumi_aws_s3_replicated_bucket.crd_k8s_amazonaws_com.v1alpha1 as __v1alpha1
+    v1alpha1 = __v1alpha1
 else:
-    gke = _utilities.lazy_import('pulumi_aws_s3_replicated_bucket.gcp.gke')
+    v1alpha1 = _utilities.lazy_import('pulumi_aws_s3_replicated_bucket.crd_k8s_amazonaws_com.v1alpha1')
 

@@ -5,8 +5,16 @@ import * as pulumi from "@pulumi/pulumi";
 import * as utilities from "./utilities";
 
 // Export members:
-export * from "./provider";
-export * from "./replicatedBucket";
+export { ProviderArgs } from "./provider";
+export type Provider = import("./provider").Provider;
+export const Provider: typeof import("./provider").Provider = null as any;
+utilities.lazyLoad(exports, ["Provider"], () => require("./provider"));
+
+export { ReplicatedBucketArgs } from "./replicatedBucket";
+export type ReplicatedBucket = import("./replicatedBucket").ReplicatedBucket;
+export const ReplicatedBucket: typeof import("./replicatedBucket").ReplicatedBucket = null as any;
+utilities.lazyLoad(exports, ["ReplicatedBucket"], () => require("./replicatedBucket"));
+
 
 // Export sub-modules:
 import * as types from "./types";
@@ -14,9 +22,6 @@ import * as types from "./types";
 export {
     types,
 };
-
-// Import resources to register:
-import { ReplicatedBucket } from "./replicatedBucket";
 
 const _module = {
     version: utilities.getVersion(),
@@ -30,9 +35,6 @@ const _module = {
     },
 };
 pulumi.runtime.registerResourceModule("aws-s3-replicated-bucket", "index", _module)
-
-import { Provider } from "./provider";
-
 pulumi.runtime.registerResourcePackage("aws-s3-replicated-bucket", {
     version: utilities.getVersion(),
     constructProvider: (name: string, type: string, urn: string): pulumi.ProviderResource => {

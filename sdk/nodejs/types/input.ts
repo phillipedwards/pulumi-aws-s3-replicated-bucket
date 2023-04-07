@@ -2,9 +2,10 @@
 // *** Do not edit by hand unless you're certain you know what you are doing! ***
 
 import * as pulumi from "@pulumi/pulumi";
-import { input as inputs, output as outputs } from "../types";
+import * as inputs from "../types/input";
+import * as outputs from "../types/output";
 
-export namespace gcp {
-    export namespace gke {
+export namespace crd.k8s.amazonaws.com {
+    export namespace v1alpha1 {
     }
 }

@@ -1,14 +1,39 @@
 {
     "name": "aws-s3-replicated-bucket",
+    "allowedPackageNames": [
+        "kubernetes"
+    ],
     "types": {
-        "kubernetes:gcp/gke:NodePoolAutoscaling": {
-            "type": "object",
+        "kubernetes:crd.k8s.amazonaws.com/v1alpha1:ENIConfig": {
             "properties": {
-                "locationPolicy": {
-                    "$ref": "/google-native/v0.27.0/schema.json#types/google-native:container/v1:NodePoolAutoscalingLocationPolicy",
-                    "description": "Location policy used when scaling up a nodepool."
+                "apiVersion": {
+                    "type": "string",
+                    "const": "crd.k8s.amazonaws.com/v1alpha1"
+                },
+                "kind": {
+                    "type": "string",
+                    "const": "ENIConfig"
+                },
+                "spec": {
+                    "type": "object",
+                    "$ref": "#/types/kubernetes:crd.k8s.amazonaws.com/v1alpha1:ENIConfigSpec"
                 }
-            }
+            },
+            "type": "object"
+        },
+        "kubernetes:crd.k8s.amazonaws.com/v1alpha1:ENIConfigSpec": {
+            "properties": {
+                "securityGroups": {
+                    "type": "array",
+                    "items": {
+                        "type": "string"
+                    }
+                },
+                "subnet": {
+                    "type": "string"
+                }
+            },
+            "type": "object"
         }
     },
     "resources": {
@@ -32,11 +57,12 @@
                     "$ref": "/aws/v4.23.0/schema.json#/resources/aws:s3%2Fbucket:Bucket",
                     "description": "Bucket to which data should be replicated."
                 },
-                "locationPolicy": {
-                    "$ref": "#/types/kubernetes:gcp/gke:NodePoolAutoscaling",
+                "eniConfig": {
                     "description": "test stuff",
                     "type": "object",
-                    "plain": true
+                    "additionalProperties": {
+                        "$ref": "#/types/kubernetes:crd.k8s.amazonaws.com/v1alpha1:ENIConfigSpec"
+                    }
                 }
             },
             "required": [

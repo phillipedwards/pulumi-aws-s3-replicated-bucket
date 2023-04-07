@@ -2,7 +2,8 @@
 // *** Do not edit by hand unless you're certain you know what you are doing! ***
 
 import * as pulumi from "@pulumi/pulumi";
-import { input as inputs, output as outputs } from "./types";
+import * as inputs from "./types/input";
+import * as outputs from "./types/output";
 import * as utilities from "./utilities";
 
 import * as pulumiAws from "@pulumi/aws";
@@ -29,7 +30,7 @@ export class ReplicatedBucket extends pulumi.ComponentResource {
     /**
      * test stuff
      */
-    public /*out*/ readonly locationPolicy!: pulumi.Output<outputs.gcp.gke.NodePoolAutoscaling | undefined>;
+    public /*out*/ readonly eniConfig!: pulumi.Output<{[key: string]: outputs.crd.k8s.amazonaws.com.v1alpha1.ENIConfigSpec} | undefined>;
     /**
      * Bucket to which objects are written.
      */
@@ -43,25 +44,23 @@ export class ReplicatedBucket extends pulumi.ComponentResource {
      * @param opts A bag of options that control this resource's behavior.
      */
     constructor(name: string, args: ReplicatedBucketArgs, opts?: pulumi.ComponentResourceOptions) {
-        let inputs: pulumi.Inputs = {};
+        let resourceInputs: pulumi.Inputs = {};
         opts = opts || {};
         if (!opts.id) {
             if ((!args || args.destinationRegion === undefined) && !opts.urn) {
                 throw new Error("Missing required property 'destinationRegion'");
             }
-            inputs["destinationRegion"] = args ? args.destinationRegion : undefined;
-            inputs["destinationBucket"] = undefined /*out*/;
-            inputs["locationPolicy"] = undefined /*out*/;
-            inputs["sourceBucket"] = undefined /*out*/;
+            resourceInputs["destinationRegion"] = args ? args.destinationRegion : undefined;
+            resourceInputs["destinationBucket"] = undefined /*out*/;
+            resourceInputs["eniConfig"] = undefined /*out*/;
+            resourceInputs["sourceBucket"] = undefined /*out*/;
         } else {
-            inputs["destinationBucket"] = undefined /*out*/;
-            inputs["locationPolicy"] = undefined /*out*/;
-            inputs["sourceBucket"] = undefined /*out*/;
+            resourceInputs["destinationBucket"] = undefined /*out*/;
+            resourceInputs["eniConfig"] = undefined /*out*/;
+            resourceInputs["sourceBucket"] = undefined /*out*/;
         }
-        if (!opts.version) {
-            opts = pulumi.mergeOptions(opts, { version: utilities.getVersion()});
-        }
-        super(ReplicatedBucket.__pulumiType, name, inputs, opts, true /*remote*/);
+        opts = pulumi.mergeOptions(utilities.resourceOptsDefaults(), opts);
+        super(ReplicatedBucket.__pulumiType, name, resourceInputs, opts, true /*remote*/);
     }
 }
 
